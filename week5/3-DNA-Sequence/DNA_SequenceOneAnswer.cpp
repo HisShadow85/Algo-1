@@ -1,4 +1,4 @@
-﻿#include<iostream>
+#include<iostream>
 #include<map>
 #include<vector>
 #include<set>
@@ -95,6 +95,16 @@ public:
 			}
 			return -1;
 		}
+
+		bool isEulerPath(){
+			 int oddDegree = 0;
+			 for (unsigned i = 0; i < vertices.size(); i++)
+			 {
+				if(vertices[i].size() & 1) oddDegree++;
+			 }
+
+			 return oddDegree == 2? true:false;
+		}
 	};
 	//ot dadeniq graf izwlicha raboten takav
 	WorkingGraph getWorkingGraph(){
@@ -145,28 +155,31 @@ class EulerPath{
 
 public:
 	  EulerPath(Graph &graph_):graph(graph_),wg(graph.getWorkingGraph()),current(wg.getFirstOddDegreeVertex()){
-	  
-		  unfinishedPath.push(current);
-	      path.push(current);
+	      if(wg.isEulerPath()){
+			  unfinishedPath.push(current);
+			  path.push(current);
 	       
-		  while(!unfinishedPath.empty()) {
-                current = unfinishedPath.top(); unfinishedPath.pop();
-                while (visitVertex()) {
-                    path.push(current);//we put the next vertex into the path
-                }
-                //докато стака с пътя е пълен и ( унфин стака  е празен  или  елемента на варха на пътя ne отговаря на този в ундин стека
-                while (!path.empty() && ( unfinishedPath.empty() || !(path.top() == unfinishedPath.top() ) )) {
-                   finishedPath.push(path.top());
-				   path.pop();
-                }
-            }
-		  while (!finishedPath.empty())
-		  {
-			  int index1;
-			  index1 = finishedPath.top(); finishedPath.pop();
-			  pathByNameAndWeights.append(graph.vertices[index1].lable);
-			  if(finishedPath.empty()) continue;
-			  pathByNameAndWeights.push_back(graph.vertices[index1].adjList[finishedPath.top()]);
+			  while(!unfinishedPath.empty()) {
+					current = unfinishedPath.top(); unfinishedPath.pop();
+					while (visitVertex()) {
+						path.push(current);//we put the next vertex into the path
+					}
+					//докато стака с пътя е пълен и ( унфин стака  е празен  или  елемента на варха на пътя ne отговаря на този в ундин стека
+					while (!path.empty() && ( unfinishedPath.empty() || !(path.top() == unfinishedPath.top() ) )) {
+					   finishedPath.push(path.top());
+					   path.pop();
+					}
+				}
+			  while (!finishedPath.empty())
+			  {
+				  int index1;
+				  index1 = finishedPath.top(); finishedPath.pop();
+				  pathByNameAndWeights.append(graph.vertices[index1].lable);
+				  if(finishedPath.empty()) continue;
+				  pathByNameAndWeights.push_back(graph.vertices[index1].adjList[finishedPath.top()]);
+			  }
+		  }else{
+			  pathByNameAndWeights ="IMPOSSIBLE";
 		  }
 	  }
 
