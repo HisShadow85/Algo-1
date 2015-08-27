@@ -1,6 +1,7 @@
 #Stack
 Write down the asymptotic complexities of the following functions:
 #Checking if a number is prime
+```
 is_prime(number) {
   for (i = 2; i < number; i++) {
     if (number % i == 0) {
@@ -9,9 +10,11 @@ is_prime(number) {
   }
   return true
 }
+```
 #Complexity: O(N)
 
 #Checking if a string is palindrome
+```
 is_palindrome(string) {
   n = length(string)
 
@@ -27,29 +30,36 @@ is_palindrome(string) {
 
   return true
 }
+```
 #Complexity: 0(N)
 
 #Summing elements of a matrix
+```
 for (i = 0; i < n; i++) {
   for (j = 0; j < m; j++) {
     sum += numbers[i][j]
   }
 }
+```
 #Complexity: O(N^2)
 
 #Counting 1
+```
 for (i = 0; i < n; i++) {
   for (j = i; j < n; j++) {
     count++
   }
 }
+```
 #Complexity: O(N^2)
 
 #Counting 2
+```
 for (i = 0; i < n; i++) {
   for (j = 1; j < n; j*=2) {
     count++
   }
 }
+```
 #Complexity: O(NlgN)
 
